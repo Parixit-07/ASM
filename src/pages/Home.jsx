@@ -209,7 +209,7 @@ export default function Home() {
           <>
             {error ? (
               <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 p-6 text-sm text-rose-700 shadow-sm">
-                {error.message || 'Unable to load products. Showing local data instead.'}
+                Unable to load products from the server. Displaying local demo products instead.
               </div>
             ) : null}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

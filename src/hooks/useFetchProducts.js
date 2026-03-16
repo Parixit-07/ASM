@@ -19,7 +19,10 @@ export function useFetchProducts() {
       })
       .catch((err) => {
         if (!mounted) return
-        setError(err)
+        console.warn('Failed to load products from API, falling back to local data.', err)
+        window.__ashashop_offline = true
+        window.dispatchEvent(new Event('ashashop-offline'))
+        setError({ message: 'Unable to load products from the server.' })
         setData(localProducts)
       })
       .finally(() => {

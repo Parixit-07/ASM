@@ -11,6 +11,19 @@ export function useFetchOrders() {
     setLoading(true)
     setError(null)
 
+    // If we're already in offline/demo mode, avoid calling the API.
+    if (window.__ashashop_offline) {
+      const stored = window.localStorage.getItem('ashashop_local_orders')
+      const localOrders = stored ? JSON.parse(stored) : []
+      if (active) {
+        setOrders(localOrders)
+        setLoading(false)
+      }
+      return () => {
+        active = false
+      }
+    }
+
     fetchOrders()
       .then((res) => {
         if (!active) return

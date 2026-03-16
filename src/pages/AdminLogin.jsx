@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { adminLogin } from '../api/auth'
 import { useAuth } from '../context/AuthContext'
@@ -14,8 +14,15 @@ export default function AdminLogin() {
 
   const from = location.state?.from?.pathname || '/admin'
 
+  // Avoid redirecting during render.
+  // Redirect from an effect once auth state is settled.
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true })
+    }
+  }, [isAuthenticated, navigate, from])
+
   if (isAuthenticated) {
-    navigate(from, { replace: true })
     return null
   }
 

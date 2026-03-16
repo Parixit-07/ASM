@@ -13,9 +13,9 @@ export const products = [
     description:
       'The Asha Classic Sewing Machine is designed for hobbyists and home sewers. It offers a smooth stitching experience with a durable metal body and user-friendly controls.',
     images: [
-      'https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1582637506289-6e5e0d51b0ca?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1554797589-7241bb691973?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/0d9488/ffffff&text=Sewing+Machine',
+      'https://dummyimage.com/600x400/14b8a6/ffffff&text=Stitching+Machine',
+      'https://dummyimage.com/600x400/0ea5e9/ffffff&text=Craft+Machine',
     ],
     tags: ['featured', 'best-seller'],
   },
@@ -33,8 +33,8 @@ export const products = [
     description:
       'Industrial-grade sewing machine built for workshops and tailoring businesses. Its powerful motor ensures consistent stitch quality on thick fabrics.',
     images: [
-      'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1511001172981-4dde4f33d4cd?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/0f172a/ffffff&text=Industrial+Sewing+Machine',
+      'https://dummyimage.com/600x400/1e40af/ffffff&text=Heavy+Duty',
     ],
     tags: ['featured'],
   },
@@ -52,8 +52,8 @@ export const products = [
     description:
       'Compact and portable sewing machine for quick repairs on the go. Ideal for small projects and beginners.',
     images: [
-      'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1520975919078-5d8c8776b12b?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/0f766e/ffffff&text=Mini+Travel+Sewing+Machine',
+      'https://dummyimage.com/600x400/14b8a6/ffffff&text=Portable+Sewing',
     ],
     tags: ['on-sale'],
   },
@@ -71,8 +71,8 @@ export const products = [
     description:
       'A set of premium stainless steel scissors designed for cutting fabrics, threads, and trims with precision.',
     images: [
-      'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1580434663512-8f69b14efb30?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/3b82f6/ffffff&text=Scissors+Set',
+      'https://dummyimage.com/600x400/2563eb/ffffff&text=Precision+Scissors',
     ],
     tags: ['accessory'],
   },
@@ -90,8 +90,8 @@ export const products = [
     description:
       'Keep your sewing machine protected from dust and moisture with this tailored cover.',
     images: [
-      'https://images.unsplash.com/photo-1503152391-5f0389217bed?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/9333ea/ffffff&text=Sewing+Machine+Cover',
+      'https://dummyimage.com/600x400/a855f7/ffffff&text=Dust+Proof+Cover',
     ],
     tags: ['popular'],
   },
@@ -109,8 +109,8 @@ export const products = [
     description:
       'Premium oil for maintaining sewing machine performance and extending the life of moving parts.',
     images: [
-      'https://images.unsplash.com/photo-1592252680894-144a6ab98b82?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1584445876379-ea2979f6dbb5?auto=format&fit=crop&w=1200&q=80',
+      'https://dummyimage.com/600x400/ea580c/ffffff&text=Machine+Oil',
+      'https://dummyimage.com/600x400/f97316/ffffff&text=Lubricant',
     ],
     tags: [],
   },

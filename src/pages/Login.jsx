@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -15,10 +15,24 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    const trimmedName = name.trim()
+    const normalizedMobile = mobile.replace(/\D/g, '')
+
+    if (!trimmedName) {
+      setError('Please enter your name.')
+      return
+    }
+
+    if (!/^[0-9]{10}$/.test(normalizedMobile)) {
+      setError('Please enter a valid 10-digit mobile number.')
+      return
+    }
+
     setError(null)
     setLoading(true)
     try {
-      await login({ name, mobile })
+      await login({ name: trimmedName, mobile: normalizedMobile })
       navigate(from, { replace: true })
     } catch (err) {
       setError(err?.message || 'Login failed')
@@ -27,8 +41,15 @@ export default function Login() {
     }
   }
 
+  // Avoid redirecting during render.
+  // The effect will run once after mount if the user is already authenticated.
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true })
+    }
+  }, [isAuthenticated, navigate, from])
+
   if (isAuthenticated) {
-    navigate(from, { replace: true })
     return null
   }
 
