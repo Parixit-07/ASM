@@ -1,0 +1,159 @@
+import dotenv from 'dotenv'
+import bcrypt from 'bcryptjs'
+import { supabase } from '../config/supabase.js'
+
+dotenv.config()
+
+const sampleProducts = [
+  {
+    name: 'Asha Classic Sewing Machine',
+    brand: 'Asha',
+    category: 'Sewing Machines',
+    price: 12999,
+    rating: 4.6,
+    reviews: 179,
+    popularity: 92,
+    instock: 12,
+    shortspecs: ['Stitch Speed: 1200 spm', 'Lightweight', 'LED Lamp', '12 Stitches'],
+    description:
+      'The Asha Classic Sewing Machine is designed for hobbyists and home sewers. It offers a smooth stitching experience with a durable metal body and user-friendly controls.',
+    images: [
+      'https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582637506289-6e5e0d51b0ca?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1554797589-7241bb691973?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: ['featured', 'best-seller'],
+  },
+  {
+    name: 'Asha Industrial Stitch Pro',
+    brand: 'Asha',
+    category: 'Industrial Machines',
+    price: 34999,
+    rating: 4.8,
+    reviews: 69,
+    popularity: 88,
+    instock: 5,
+    shortspecs: ['Heavy Duty', 'High Speed', 'Automatic Lubrication', 'Non-Stop Sewing'],
+    description:
+      'Industrial-grade sewing machine built for workshops and tailoring businesses. Its powerful motor ensures consistent stitch quality on thick fabrics.',
+    images: [
+      'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1511001172981-4dde4f33d4cd?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: ['featured'],
+  },
+  {
+    name: 'Asha Mini Travel Sewing Machine',
+    brand: 'Asha',
+    category: 'Mini Sewing Machines',
+    price: 6599,
+    rating: 4.1,
+    reviews: 33,
+    popularity: 74,
+    instock: 18,
+    shortspecs: ['Portable', 'USB Powered', 'Two Speed', 'Easy Threading'],
+    description:
+      'Compact and portable sewing machine for quick repairs on the go. Ideal for small projects and beginners.',
+    images: [
+      'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1520975919078-5d8c8776b12b?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: ['on-sale'],
+  },
+  {
+    name: 'Heavy Duty Scissors Set (3 pcs)',
+    brand: 'Asha',
+    category: 'Sewing Tools',
+    price: 1499,
+    rating: 4.5,
+    reviews: 94,
+    popularity: 66,
+    instock: 32,
+    shortspecs: ['Stainless Steel', 'Ergonomic Grip', 'Precision Cutting'],
+    description:
+      'A set of premium stainless steel scissors designed for cutting fabrics, threads, and trims with precision.',
+    images: [
+      'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1580434663512-8f69b14efb30?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: ['accessory'],
+  },
+  {
+    name: 'Sewing Machine Cover',
+    brand: 'Asha',
+    category: 'Accessories',
+    price: 899,
+    rating: 4.3,
+    reviews: 54,
+    popularity: 58,
+    instock: 40,
+    shortspecs: ['Water Resistant', 'Dustproof', 'Fits Most Models'],
+    description:
+      'Keep your sewing machine protected from dust and moisture with this tailored cover.',
+    images: [
+      'https://images.unsplash.com/photo-1503152391-5f0389217bed?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: ['popular'],
+  },
+  {
+    name: 'Sewing Machine Oil Bottle',
+    brand: 'Asha',
+    category: 'Accessories',
+    price: 299,
+    rating: 4.2,
+    reviews: 31,
+    popularity: 52,
+    instock: 120,
+    shortspecs: ['Lubricates Smoothly', 'Anti-Rust Formula', 'Easy Tip Applicator'],
+    description:
+      'Premium oil for maintaining sewing machine performance and extending the life of moving parts.',
+    images: [
+      'https://images.unsplash.com/photo-1592252680894-144a6ab98b82?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1584445876379-ea2979f6dbb5?auto=format&fit=crop&w=1200&q=80',
+    ],
+    tags: [],
+  },
+]
+
+const adminUser = {
+  name: 'Admin',
+  email: 'admin@asha.com',
+  password: bcrypt.hashSync('Admin@123', 10),
+  role: 'admin',
+}
+
+async function seedProducts() {
+  const { data, error } = await supabase
+    .from('products')
+    .upsert(sampleProducts, { onConflict: 'name' })
+
+  if (error) throw error
+  console.log(`✅ Seeded ${data?.length ?? 0} products`)
+}
+
+async function seedAdminUser() {
+  const { data: existing } = await supabase.from('users').select('id').eq('email', adminUser.email).limit(1)
+  if (existing?.length > 0) {
+    console.log('✅ Admin user already exists')
+    return
+  }
+
+  const { error } = await supabase.from('users').insert(adminUser)
+  if (error) throw error
+  console.log('✅ Seeded admin user (admin@asha.com / Admin@123)')
+}
+
+async function run() {
+  try {
+    await seedProducts()
+    await seedAdminUser()
+    console.log('✅ Supabase seeding complete')
+    process.exit(0)
+  } catch (error) {
+    console.error('❌ Supabase seeding failed', error)
+    process.exit(1)
+  }
+}
+
+run()
